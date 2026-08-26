@@ -3,6 +3,9 @@ import { defineConfig } from "hardhat/config";
 import dotenv from "dotenv";
 dotenv.config();
 
+const mainnetAccounts = process.env.MAINNET_PRIVATE_KEY ? [process.env.MAINNET_PRIVATE_KEY] : [];
+const testnetAccounts = process.env.TESTNET_PRIVATE_KEY ? [process.env.TESTNET_PRIVATE_KEY] : [];
+
 export default defineConfig({
   plugins: [hardhatToolboxMochaEthersPlugin],
   solidity: {
@@ -26,29 +29,56 @@ export default defineConfig({
       type: "edr-simulated",
       chainType: "op",
     },
+    mainnet: {
+      type: "http",
+      chainId: 1,
+      url: process.env.MAINNET_RPC_URL ?? "https://ethereum-rpc.publicnode.com",
+      accounts: mainnetAccounts,
+    },
     base: {
       type: "http",
       chainType: "op",
+      chainId: 8453,
       url: process.env.BASE_RPC_URL ?? "https://mainnet.base.org",
-      accounts: process.env.BASE_PRIVATE_KEY ? [process.env.BASE_PRIVATE_KEY] : [],
+      accounts: mainnetAccounts,
+    },
+    bsc: {
+      type: "http",
+      chainId: 56,
+      url: process.env.BSC_RPC_URL ?? "https://bsc-dataseed.binance.org",
+      accounts: mainnetAccounts,
+    },
+    sepolia: {
+      type: "http",
+      chainId: 11155111,
+      url: process.env.SEPOLIA_RPC_URL ?? "https://ethereum-sepolia-rpc.publicnode.com",
+      accounts: testnetAccounts,
     },
     base_sepolia: {
       type: "http",
       chainType: "op",
       chainId: 84532,
       url: process.env.BASE_SEPOLIA_RPC_URL ?? "https://sepolia.base.org",
-      accounts: process.env.BASE_SEPOLIA_PRIVATE_KEY ? [process.env.BASE_SEPOLIA_PRIVATE_KEY] : [],
-    },
-    bsc: {
-      type: "http",
-      chainId: 56,
-      url: process.env.BSC_RPC_URL ?? "https://bsc-dataseed.binance.org",
-      accounts: process.env.BSC_PRIVATE_KEY ? [process.env.BSC_PRIVATE_KEY] : [],
+      accounts: testnetAccounts,
     },
     bsc_testnet: {
       type: "http",
-      url: process.env.BSC_TESTNET_RPC_URL ?? "https://data-seed-prebsc-1-s1.binance.org:8545",
-      accounts: process.env.BSC_TESTNET_PRIVATE_KEY ? [process.env.BSC_TESTNET_PRIVATE_KEY] : [],
+      chainId: 97,
+      url: process.env.BSC_TESTNET_RPC_URL ?? "https://bsc-testnet-rpc.publicnode.com",
+      accounts: testnetAccounts,
+    },
+  },
+  chainDescriptors: {
+    97: {
+      name: "BSC Testnet",
+      blockExplorers: {
+        etherscan: { url: "https://testnet.bscscan.com" },
+      },
+    },
+  },
+  verify: {
+    etherscan: {
+      apiKey: process.env.ETHERSCAN_API_KEY ?? "",
     },
   },
 });

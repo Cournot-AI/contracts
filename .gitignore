@@ -22,3 +22,6 @@
 .idea
 .claude
 .env
+
+# on-chain operation logs
+/logs
