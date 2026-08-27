@@ -48,7 +48,7 @@ export const CHAINS: Record<string, Chain> = {
       "0xa59ba433ac34d2927232918ef5b2eaafcf130ba5", // Nethermind
     ],
     confirmations: 15,
-    token: "",
+    token: "0x8300e7F4788C74f586588EBfa1A297a09ef43a7e",
   },
   base: {
     env: "mainnet",
@@ -62,7 +62,7 @@ export const CHAINS: Record<string, Chain> = {
       "0xcd37ca043f8479064e10635020c65ffc005d36f6", // Nethermind
     ],
     confirmations: 10,
-    token: "",
+    token: "0x8300e7F4788C74f586588EBfa1A297a09ef43a7e",
   },
   bsc: {
     env: "mainnet",
@@ -76,7 +76,7 @@ export const CHAINS: Record<string, Chain> = {
       "0x31f748a368a893bdb5abb67ec95f232507601a73", // Nethermind
     ],
     confirmations: 20,
-    token: "",
+    token: "0x8300e7F4788C74f586588EBfa1A297a09ef43a7e",
   },
 
   // ---------------- testnet ----------------
